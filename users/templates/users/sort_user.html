@@ -1,0 +1,77 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}User{% endblock %}
+{% block body_class %}page-sort{% endblock %}
+
+{% block top_nav %}
+<div class="top-nav">
+    <a href="{% url 'home' %}" class="nav-btn btn-red">Home page</a>
+    <a href="{% url 'show_user' %}" class="nav-btn btn-cyan">Show user</a>
+    <a href="{% url 'insert_user' %}" class="nav-btn btn-yellow">Insert user</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<h1 class="page-header-title">Show User Data - Sorted</h1>
+
+<div class="table-controls">
+    <form method="GET" action="{% url 'sort_user' %}" class="sort-form">
+        <select name="sort_by" class="sort-select">
+            <option value="User ID" {% if selected_sort == 'User ID' or selected_sort == 'user_id' %}selected{% endif %}>User ID</option>
+            <option value="User Name" {% if selected_sort == 'User Name' or selected_sort == 'user_name' %}selected{% endif %}>User Name</option>
+            <option value="Country" {% if selected_sort == 'Country' or selected_sort == 'country' %}selected{% endif %}>Country</option>
+            <option value="User age" {% if selected_sort == 'User age' or selected_sort == 'u_age' %}selected{% endif %}>User age</option>
+            <option value="pincode" {% if selected_sort == 'pincode' %}selected{% endif %}>pincode</option>
+            <option value="City" {% if selected_sort == 'City' or selected_sort == 'city' %}selected{% endif %}>City</option>
+        </select>
+        <input type="submit" value="Sort" class="sort-btn">
+    </form>
+
+    <div class="action-bar">
+        <a href="{% url 'run_query_user' %}" class="run-query-btn">Run Query</a>
+        <a href="{% url 'export_csv' %}" class="export-csv-btn">Export CSV</a>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>User Name</th>
+                <th>country</th>
+                <th>user age</th>
+                <th>pincode</th>
+                <th>city</th>
+                <th>password</th>
+                <th>✍️</th>
+                <th>🗑️</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.user_id }}</td>
+                <td>{{ user.user_name }}</td>
+                <td>{{ user.country }}</td>
+                <td>{{ user.u_age }}</td>
+                <td>{{ user.pincode }}</td>
+                <td>{{ user.city }}</td>
+                <td>{{ user.passwords }}</td>
+                <td>
+                    <a href="{% url 'edit_user' user.user_id %}" class="action-link">Edit</a>
+                </td>
+                <td>
+                    <a href="{% url 'delete_user' user.user_id %}" class="action-link" onclick="return confirm('Are you sure want to delete data?')">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="9" style="padding: 20px; text-align: center; color: #666;">No users available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

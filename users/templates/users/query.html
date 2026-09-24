@@ -1,0 +1,45 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}User Stats{% endblock %}
+{% block body_class %}page-query{% endblock %}
+
+{% block top_nav %}
+<div class="top-nav">
+    <a href="{% url 'home' %}" class="nav-btn btn-red">Home page</a>
+    <a href="{% url 'show_user' %}" class="nav-btn btn-cyan">Show user</a>
+    <a href="{% url 'insert_user' %}" class="nav-btn btn-yellow">Insert user</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<h1 class="page-header-title">Query</h1>
+<p class="page-subtitle">Write Your Query Below</p>
+
+<form method="POST" action="{% url 'process_custom_query' %}">
+    {% csrf_token %}
+    <div class="query-preset-wrapper">
+        <label for="query-preset">Choose a prepared query</label>
+        <select id="query-preset" class="query-preset">
+            <option value="">Select a query...</option>
+            {% for label, sql in query_presets %}
+            <option value="{{ sql|escape }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="query-box-wrapper">
+        <textarea id="query-input" name="query" class="query-input" required>{{ default_query|default:'select * from "User" natural join "Game"' }}</textarea>
+        <input type="submit" value="Execute" class="query-exec-btn">
+    </div>
+</form>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.getElementById('query-preset').addEventListener('change', function () {
+        if (this.value) {
+            document.getElementById('query-input').value = this.value;
+        }
+    });
+</script>
+{% endblock %}

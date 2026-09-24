@@ -1,0 +1,25 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}Digital video game distribution{% endblock %}
+{% block body_class %}page-home{% endblock %}
+
+{% block top_nav %}
+<!-- No top nav on home page, exactly matching reference video -->
+{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <h1 class="home-title">Digital video game distribution</h1>
+    
+    <div class="home-menu">
+        <a href="{% url 'show_user' %}" class="menu-btn btn-red">User Database</a>
+        <a href="{% url 'show_user' %}" class="menu-btn btn-cyan">Game Database</a>
+        <a href="{% url 'show_user' %}" class="menu-btn btn-yellow">Tournament Database</a>
+    </div>
+</div>
+
+<marquee class="home-marquee" behavior="scroll" direction="left">
+    <p class="marquee-text">Life is a game!</p>
+</marquee>
+{% endblock %}

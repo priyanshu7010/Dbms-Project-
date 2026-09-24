@@ -1,0 +1,78 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}User{% endblock %}
+{% block body_class %}page-edit{% endblock %}
+
+{% block top_nav %}
+<div class="top-nav">
+    <a href="{% url 'home' %}" class="nav-btn btn-red">Home page</a>
+    <a href="{% url 'show_user' %}" class="nav-btn btn-cyan">Show user</a>
+    <a href="{% url 'insert_user' %}" class="nav-btn btn-yellow">Insert user</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<h1 class="page-header-title">Edit User Records</h1>
+
+<div class="form-wrapper">
+    <form method="POST" action="{% url 'update_user' user.user_id %}">
+        {% csrf_token %}
+        <table class="form-table">
+            <tr>
+                <td class="label-cell">User ID</td>
+                <td class="input-cell">
+                    <input type="text" name="user_id" value="{{ user.user_id }}" readonly style="background-color: #f8f9fa;">
+                </td>
+            </tr>
+            <tr>
+                <td class="label-cell">User Name</td>
+                <td class="input-cell">
+                    <input type="text" name="user_name" value="{{ user.user_name }}" required>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-cell">country</td>
+                <td class="input-cell">
+                    <input type="text" name="country" value="{{ user.country }}" required>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-cell">User age</td>
+                <td class="input-cell">
+                    <input type="text" name="u_age" value="{{ user.u_age }}" required>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-cell">pincode ID</td>
+                <td class="input-cell">
+                    <input type="text" name="pincode" value="{{ user.pincode }}" required>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-cell">city</td>
+                <td class="input-cell">
+                    <input type="text" name="city" value="{{ user.city }}" required>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-cell">passwords</td>
+                <td class="input-cell">
+                    <input type="text" name="passwords" value="{{ user.passwords }}" required>
+                </td>
+            </tr>
+        </table>
+
+        <div class="form-footer">
+            <div class="form-status-message {% if error_message %}error{% endif %}">
+                {% if success_message %}
+                    {{ success_message }}
+                {% elif error_message %}
+                    {{ error_message }}
+                {% endif %}
+            </div>
+            <input type="submit" value="Update Record" class="form-submit-btn btn-red">
+        </div>
+    </form>
+</div>
+{% endblock %}

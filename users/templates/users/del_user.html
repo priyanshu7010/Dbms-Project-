@@ -1,0 +1,19 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}User Management{% endblock %}
+{% block body_class %}page-delete{% endblock %}
+
+{% block top_nav %}
+<div class="top-nav">
+    <a href="{% url 'home' %}" class="nav-btn btn-red">Home page</a>
+    <a href="{% url 'show_user' %}" class="nav-btn btn-cyan">Show user</a>
+    <a href="{% url 'insert_user' %}" class="nav-btn btn-yellow">Insert user</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="delete-success-container">
+    <h1 class="page-header-title" style="margin-top: 0; font-size: 38px;">Deleted Successfully</h1>
+</div>
+{% endblock %}

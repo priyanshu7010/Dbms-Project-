@@ -1,0 +1,12 @@
+IF FIRST TIME THEN 
+1. .\.venv\Scripts\Activate.ps1 
+2.python -m pip install -r requirements.txt   AND THEN BELOW STEPS
+
+1. python manage.py seed_data
+2. python manage.py sync_csv
+3. python manage.py runserver
+
+`users.csv` is now synchronized automatically whenever a `User` is inserted,
+updated, or deleted. The `sync_csv` command remains available for an initial
+manual rebuild or recovery. Inserts from the web form are sent asynchronously,
+so the page does not reload after a successful save.

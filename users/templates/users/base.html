@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}User Stats{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'users/css/style.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    {% block top_nav %}
+    <div class="top-nav">
+        <a href="{% url 'home' %}" class="nav-btn btn-red">Home page</a>
+        <a href="{% url 'show_user' %}" class="nav-btn btn-cyan">Show user</a>
+        <a href="{% url 'insert_user' %}" class="nav-btn btn-yellow">Insert user</a>
+    </div>
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,60 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}User Stats{% endblock %}
+{% block body_class %}page-query-results{% endblock %}
+
+{% block top_nav %}
+<div class="top-nav">
+    <a href="{% url 'home' %}" class="nav-btn btn-red">Home page</a>
+    <a href="{% url 'show_user' %}" class="nav-btn btn-cyan">Show user</a>
+    <a href="{% url 'insert_user' %}" class="nav-btn btn-yellow">Insert user</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<h1 class="page-header-title">Show User Details</h1>
+
+{% if error_message %}
+<div class="query-error-card">
+    {{ error_message }}
+</div>
+{% endif %}
+
+{% if result_message %}
+<div class="query-success-card">
+    {{ result_message }}
+</div>
+{% endif %}
+
+<div class="query-result-actions">
+    <a href="{% url 'run_query_user' %}" class="nav-btn btn-cyan">Run another query</a>
+</div>
+
+{% if columns %}
+<div class="table-responsive">
+    <table class="data-table">
+        <thead>
+            <tr>
+                {% for col in columns %}
+                <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                {% for cell in row %}
+                <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="{{ columns|length }}" style="padding: 20px; text-align: center; color: #666;">Query returned 0 rows.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}
